@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { View } from 'react-native';
 import { Button, Paragraph, Dialog, Portal } from 'react-native-paper';
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
@@ -18,13 +18,19 @@ import AddProduct from '../../../screens/ManageProducts/pages/AddProduct/AddProd
 import EditProduct from '../../../screens/ManageProducts/pages/EditProduct/EditProduct'
 
 import Marketplace from "../../../screens/Marketplace/Marketplace";
+import MarketProductInfo from "../../../screens/Marketplace/pages/MarketProductInfo/MarketProductInfo";
+import { getData } from "../../utils";
 
 const Stack = createStackNavigator()
 const Tab = createMaterialBottomTabNavigator();
 
 const MainMenu = props => {
   const [visible, setVisible] = useState(true);
-
+  const [isFarmer, setisFarmer] = useState(true);
+  
+  useEffect(()=>{
+    getData('isFarmer').then(e=>setisFarmer(e))
+  },[])
   const HomeComponents = () => {
     return(
       <>
@@ -61,13 +67,26 @@ const MainMenu = props => {
     )
   }
 
+  const ManageOrderComponents = () => {
+    return(
+      <>
+      <Stack.Navigator initialRouteName="Manage Orders" headerMode="none">
+        <Stack.Screen name="Manage Orders" component={ManageOrders} options={{ title: "Manage Products" }}/>
+        <Stack.Screen name="Product Info" component={ProductInfo} options={{ title: "Product Info" }}/>
+        <Stack.Screen name="Add Product" component={AddProduct} options={{ title: "Add Product" }}/>
+        <Stack.Screen name="Edit Product" component={EditProduct} options={{ title: "Edit Product" }}/>
+      </Stack.Navigator>
+    </>
+    )
+  }
+
   const MarketplaceComponents = () => {
     return(
       <>
       <Stack.Navigator initialRouteName="Marketplace" headerMode="none">
         <Stack.Screen name="Marketplace" component={Marketplace} options={{ title: "Marketplace" }}/>
-        {/* <Stack.Screen name="Product Info" component={ProductInfo} options={{ title: "Product Info" }}/>
-        <Stack.Screen name="Add Product" component={AddProduct} options={{ title: "Add Product" }}/>
+        <Stack.Screen name="Market Product Info" component={MarketProductInfo} options={{ title: "Market Product Info" }}/>
+        {/* <Stack.Screen name="Add Product" component={AddProduct} options={{ title: "Add Product" }}/>
         <Stack.Screen name="Edit Product" component={EditProduct} options={{ title: "Edit Product" }}/> */}
       </Stack.Navigator>
     </>
@@ -94,7 +113,7 @@ return (
         ),
       }}
     />
-    <Tab.Screen 
+    {isFarmer && <Tab.Screen 
       name="Manage" 
       children={ManageComponents} 
       options={{
@@ -103,10 +122,20 @@ return (
           <MaterialCommunityIcons name="treasure-chest" color={color} size={26} />
         ),
       }}
-    />
+    />}
+    {!isFarmer && <Tab.Screen 
+      name="Manage" 
+      children={ManageOrderComponents} 
+      options={{
+        tabBarLabel: 'Orders',
+        tabBarIcon: ({ color }) => (
+          <MaterialCommunityIcons name="treasure-chest" color={color} size={26} />
+        ),
+      }}
+    />}
     <Tab.Screen 
       name="Marketplace" 
-      children={Marketplace} 
+      children={MarketplaceComponents} 
       options={{
         tabBarLabel: 'Marketplace',
         tabBarIcon: ({ color }) => (

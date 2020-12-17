@@ -13,6 +13,7 @@ import {
 } from 'react-native-paper'
 
 import BgLeaf from '../../shared/components/Container/BgLeaf/BgLeaf'
+import { storeData } from "../../shared/utils";
 
 const Login = props => {
   const [username, setUsername] = useState('')
@@ -41,6 +42,8 @@ const Login = props => {
       setPassError(true)
     }
     else{
+    if (username.toLowerCase() == 'farmer') storeData('isFarmer',true)
+    else storeData('isFarmer',false)
     props.navigation.navigate('Main Menu')
     setUsername('')
     setPassword('')

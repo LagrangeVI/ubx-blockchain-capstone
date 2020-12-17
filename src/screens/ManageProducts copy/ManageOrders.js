@@ -78,46 +78,40 @@ const goodsss = [
   },
 ]
 
-const Marketplace = props => {
+const ManageOrders = props => {
   // console.log(goodsss)
   const [goods, setGoods] = useState([
-    {
-      goodsId: 0,
-      farmerId: 0,
-      farm: 'Chicken Farm',
-      farmerName: 'Juan Cruz',
-      goodsName: 'Native Chicken',
-      quantityType : 'kg',
-      quantityValue : '1000',
-      amountPerUnit : '50',
-      amount : '8000',
-      additionalDesc :'Chicken alive',
-      plantationDate : '2008-01-01 00:00:01',
-      harvestDate : '2008-01-01 00:00:01',
-      createdAt : '2007-01-01 00:00:01',
-      updatedAt : '2008-01-01 00:00:01',
-    },
-    {
-      goodsId: 1,
-      farmerId: 1,
-      farm: 'Potato Farm',
-      farmerName: 'Andy Lim',
-      goodsName: 'Native Potato',
-      quantityType : 'kg',
-      quantityValue : '500',
-      amountPerUnit : '50',
-      amount : '5000',
-      additionalDesc :'Potato',
-      plantationDate : '2008-01-01 00:00:01',
-      harvestDate : '2008-01-01 00:00:01',
-      createdAt : '2007-01-01 00:00:01',
-      updatedAt : '2008-01-01 00:00:01',
-    },
+    // {
+    //   goodsId: 0,
+    //   farmerId: 0,
+    //   goodsName: 'Native Chicken',
+    //   quantityType : 'kg',
+    //   quantityValue : '1000',
+    //   amountPerUnit : '50',
+    //   amount : '8000',
+    //   additionalDesc :'Chicken alive',
+    //   plantationDate : '2008-01-01 00:00:01',
+    //   harvestDate : '2008-01-01 00:00:01',
+    //   createdAt : '2007-01-01 00:00:01',
+    //   updatedAt : '2008-01-01 00:00:01',
+    // },
+    // {
+    //   goodsId: 1,
+    //   farmerId: 1,
+    //   goodsName: 'Native Potato',
+    //   quantityType : 'kg',
+    //   quantityValue : '500',
+    //   amountPerUnit : '50',
+    //   amount : '5000',
+    //   additionalDesc :'Potato',
+    //   plantationDate : '2008-01-01 00:00:01',
+    //   harvestDate : '2008-01-01 00:00:01',
+    //   createdAt : '2007-01-01 00:00:01',
+    //   updatedAt : '2008-01-01 00:00:01',
+    // },
     {
       goodsId: 1,
       farmerId: 1,
-      farm: 'Wheat Farm',
-      farmerName: 'James Cornes',
       goodsName: 'Wheat',
       quantityType : 'kg',
       quantityValue : '2000',
@@ -129,48 +123,29 @@ const Marketplace = props => {
       createdAt : '2007-01-01 00:00:01',
       updatedAt : '2008-01-01 00:00:01',
     },
+    // {
+    //   goodsId: 1,
+    //   farmerId: 1,
+    //   goodsName: 'Cashews',
+    //   quantityType : 'kg',
+    //   quantityValue : '3000',
+    //   amountPerUnit : '50',
+    //   amount : '4000',
+    //   additionalDesc :'Cashews unprocessed',
+    //   plantationDate : '2008-01-01 00:00:01',
+    //   harvestDate : '2008-01-01 00:00:01',
+    //   createdAt : '2007-01-01 00:00:01',
+    //   updatedAt : '2008-01-01 00:00:01',
+    // },
     {
       goodsId: 1,
       farmerId: 1,
-      farm: 'Cashews Farm',
-      farmerName: 'Andy Lim',
-      goodsName: 'Cashews',
-      quantityType : 'kg',
-      quantityValue : '3000',
-      amountPerUnit : '50',
-      amount : '4000',
-      additionalDesc :'Cashews unprocessed',
-      plantationDate : '2008-01-01 00:00:01',
-      harvestDate : '2008-01-01 00:00:01',
-      createdAt : '2007-01-01 00:00:01',
-      updatedAt : '2008-01-01 00:00:01',
-    },
-    {
-      goodsId: 1,
-      farmerId: 1,
-      farm: 'Pecan Orchard',
-      farmerName: 'James Cornes',
       goodsName: 'Pecans',
       quantityType : 'kg',
       quantityValue : '4000',
       amountPerUnit : '50',
       amount : '7000',
       additionalDesc :'Pecans whole',
-      plantationDate : '2008-01-01 00:00:01',
-      harvestDate : '2008-01-01 00:00:01',
-      createdAt : '2007-01-01 00:00:01',
-      updatedAt : '2008-01-01 00:00:01',
-    },
-    {
-      goodsId: 1,
-      farmerId: 1,
-      farm: 'Tomato Orchard',
-      goodsName: 'Tomatoes',
-      quantityType : 'kg',
-      quantityValue : '7000',
-      amountPerUnit : '60',
-      amount : '8000',
-      additionalDesc : 'Semi- ripe tomatoes, ripes in',
       plantationDate : '2008-01-01 00:00:01',
       harvestDate : '2008-01-01 00:00:01',
       createdAt : '2007-01-01 00:00:01',
@@ -229,7 +204,7 @@ const Marketplace = props => {
           item={item}
           title="Product A" 
           caption="Update your basic information that will be seen by merchants"
-          onPress={() => props.navigation.navigate('Market Product Info', {item: item})}
+          onPress={() => props.navigation.navigate('Market Product Info', {item: item, index: i})}
         />
       )
     })
@@ -241,17 +216,25 @@ const Marketplace = props => {
     >
       <HeaderContianer>
         <View style={{flex: 1, alignContent:'center', alignItems: 'center', marginTop: 40, marginBottom: 'auto'}}>
-          <Text style={styles.incomeTitle}>Marketplace</Text>
-          <Title style={styles.cardTitle}>Available goods from all farmers </Title>
+          <Text style={styles.incomeTitle}>Your Products</Text>
+          <Title style={styles.cardTitle}>List of all your published goods</Title>
         </View>
       </HeaderContianer>
-      {/* {listGoods()} */}
+
       <ScrollView
         style={{borderBottomWidth: StyleSheet.hairlineWidth}}
       >
         {listGoods()}
       </ScrollView>
 
+      <Button 
+        icon="plus" 
+        mode="contained" 
+        style={{...styles.btn}}
+        onPress={() => props.navigation.navigate('Add Product',{addGoods: addProduct})}
+      >
+        ADD A PRODUCT
+      </Button>
     </View>
   )
 }
@@ -286,4 +269,4 @@ const styles = StyleSheet.create({
 });
 
 
-export default Marketplace
+export default ManageOrders
