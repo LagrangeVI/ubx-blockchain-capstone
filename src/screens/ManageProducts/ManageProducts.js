@@ -1,6 +1,6 @@
 import React, {useState} from 'react'
-import { StyleSheet, View, ScrollView } from 'react-native'
-import { Card, Title, Paragraph, Button, Text, Caption } from 'react-native-paper';
+import { StyleSheet, View, ScrollView, Platform } from 'react-native'
+import { Card, Title, Paragraph, Button, Text, Caption, Appbar } from 'react-native-paper';
 
 import HeaderContianer from '../../shared/components/Container/HeaderContainer/HeaderContainer';
 import CardItem from './components/CardItems';
@@ -77,6 +77,7 @@ const goodsss = [
     updatedAt : '2008-01-01 00:00:01',
   },
 ]
+const MORE_ICON = Platform.OS === 'ios' ? 'dots-horizontal' : 'dots-vertical';
 
 const ManageProducts = props => {
   // console.log(goodsss)
@@ -92,6 +93,7 @@ const ManageProducts = props => {
     setGoods([...temp])
   }
 
+  
   const listGoods = () => {
     return goods.map((item, i) => {
       console.log(item)
@@ -111,7 +113,15 @@ const ManageProducts = props => {
     <View
       style={{...styles.container}}
     >
-      <HeaderContianer>
+      <Appbar.Header style={{height: 73, backgroundColor: 'white'}} color='white'>
+      
+        <Appbar.Action icon="menu" size={20} color='#BCBCBC' onPress={() => {}} />
+        <Appbar.Content title="Wine list" color='#C92459' />
+        <Appbar.Action icon="magnify" size={20} color='#BCBCBC' onPress={() => {}} />
+        <Appbar.Action icon="bell-outline" size={20} color='#BCBCBC' onPress={() => {}} />
+      </Appbar.Header>
+
+      {/* <HeaderContianer>
         <View style={styles.headerContainer}>
           <View style={{flexDirection: 'row'}}>
             <Text style={styles.incomeTitle}>Manage Product</Text>
@@ -120,7 +130,7 @@ const ManageProducts = props => {
             <Text style={styles.incomeSubTitle}>Your Product Listing</Text>
           </View>
         </View>
-      </HeaderContianer>
+      </HeaderContianer> */}
 
       <ScrollView
         style={{borderBottomWidth: StyleSheet.hairlineWidth}}
@@ -128,14 +138,14 @@ const ManageProducts = props => {
         {listGoods()}
       </ScrollView>
 
-      <Button 
+      {/* <Button 
         icon="plus" 
         mode="contained" 
         style={{...styles.btn}}
         onPress={() => props.navigation.navigate('Add Product')}
       >
         ADD A PRODUCT
-      </Button>
+      </Button> */}
     </View>
   )
 }

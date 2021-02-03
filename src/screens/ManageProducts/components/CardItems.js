@@ -5,8 +5,8 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
 
 const CardItem = (props) => {
   return(
-    <Card style={{margin: 10,}} onPress={props.onPress}>
-      <Card.Content style={{flexDirection: 'row', justifyContent: 'space-between', borderLeftWidth: 2, borderLeftColor: '#6200EE',}}>
+    <Card style={{margin: 20, borderTopRightRadius: 15, borderBottomRightRadius: 15, shadowRadius: 2 }} onPress={props.onPress}>
+      <Card.Content style={{flexDirection: 'row', justifyContent: 'space-between', borderLeftWidth: 3, borderLeftColor: '#26B6BB'}}>
         <View>
           <Title style={styles.cardTitle}>{props.item? props.item.goodsName :  props.title}</Title>
           <Caption style={styles.cardCaption}>{props.item? props.item.additionalDesc : props.caption}</Caption>
